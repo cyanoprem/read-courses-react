@@ -1,4 +1,4 @@
-import { createContext } from "react"
+import { createContext, useEffect } from "react"
 
 const coursesContext = createContext()
 
@@ -16,6 +16,10 @@ const CoursesContextProvider = ({children}) => {
     const data = await response.json()
     console.log(data)
   }
+
+  useEffect(() => {
+    getAllCourses()
+  },[])
 
   return <>
     <coursesContext.Provider value={{}}>
