@@ -1,9 +1,12 @@
-import { createContext, useEffect } from "react"
+import { createContext, useEffect, useState } from "react"
 
-const coursesContext = createContext()
+const coursesContext = createContext({
+  allCourses: [],
+})
 
 const CoursesContextProvider = ({children}) => {
 
+  const [allCourses, setAllCourses] = useState([])
 
   const getAllCourses = async () => {
     const response = await fetch('http://localhost:8000/courses', {
@@ -14,7 +17,8 @@ const CoursesContextProvider = ({children}) => {
     })
 
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
+    setAllCourses(data)
   }
 
   useEffect(() => {
@@ -22,7 +26,7 @@ const CoursesContextProvider = ({children}) => {
   },[])
 
   return <>
-    <coursesContext.Provider value={{}}>
+    <coursesContext.Provider value={{allCourses}}>
       {children}
     </coursesContext.Provider>
   </>
